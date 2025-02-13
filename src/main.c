@@ -116,11 +116,17 @@ void randomize_grass() {
             if ((rand & 0x30) == 0) {
                 rand %= 5;
                 field[i] = 64 + rand;
-                field_original[i] = 64 + rand;
             }
         }
         ++i;
     } while(i);
+}
+
+void store_original_field() {
+    i = 0;
+    do {
+      field_original[i] = field[i];
+    } while(++i);
 }
 
 
@@ -148,6 +154,7 @@ void load_next_level() {
     init_player();
     scan_level();
     randomize_grass();
+    store_original_field();
 }
 
 void draw_field() {
