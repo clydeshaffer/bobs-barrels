@@ -2,6 +2,8 @@ CC = cc65
 AS = ca65
 LN = ld65
 
+NODE_SCRIPTS ?= scripts
+
 #set this for your output ROM file name
 TARGET=game.gtr
 
@@ -57,21 +59,18 @@ $(BANKS): $(ASSETOBJS) $(AOBJS) $(COBJS) $(LLIBS) gametank-2M.cfg
 .PRECIOUS: $(ODIR)/assets/%.bin
 $(ODIR)/assets/%.bin: assets/%.slc
 	mkdir -p $(@D)
-	cd scripts/sokoban ;\
-	node sokoban.js ../../$< ../../$@
+	node $(NODE_SCRIPTS)/sokoban/sokoban.js $< $@
 
 .PRECIOUS: $(ODIR)/assets/%.gtg
 $(ODIR)/assets/%.gtg: assets/%.bmp
 	mkdir -p $(@D)
-	cd scripts/converters ;\
-	OUTSPRITES=$$(node sprite_convert.js ../../$< ../../$@);\
+	OUTSPRITES=$$(node $(NODE_SCRIPTS)/converters/sprite_convert.js $< $@);\
 	zopfli --deflate $$OUTSPRITES
 
 .PRECIOUS: $(ODIR)/assets/%.gtm2
 $(ODIR)/assets/%.gtm2: assets/%.mid
 	mkdir -p $(@D)
-	cd scripts/converters ;\
-	node midiconvert.js ../../$< ../../$@
+	node $(NODE_SCRIPTS)/converters/midiconvert.js $< $@
 
 .PRECIOUS: $(ODIR)/assets/%.deflate
 $(ODIR)/assets/%.deflate: $(ODIR)/assets/%
@@ -81,8 +80,7 @@ $(ODIR)/assets/%.deflate: $(ODIR)/assets/%
 .PRECIOUS: $(ODIR)/assets/%.gsi
 $(ODIR)/assets/%.gsi: assets/%.json
 	mkdir -p $(@D)
-	cd scripts/converters ;\
-	node sprite_metadata.js ../../$< ../../$@
+	node $(NODE_SCRIPTS)/converters/sprite_metadata.js $< $@
 
 $(ODIR)/assets/audio_fw.bin.deflate: $(ODIR)/assets/audio_fw.bin
 	zopfli --deflate $<
@@ -117,7 +115,7 @@ $(ODIR)/gt/crt0.o: src/gt/crt0.s build/assets/audio_fw.bin.deflate
 	$(AS) $(AFLAGS) -o $@ $<
 
 gametank-2M.cfg:
-	node ./scripts/build_setup/import_assets.js
+	node $(NODE_SCRIPTS)/build_setup/import_assets.js
 
 dummy%:
 	@:
@@ -135,8 +133,6 @@ emulate: bin/$(TARGET)
 	$(EMUPATH)/build/GameTankEmulator bin/$(TARGET)
 
 scripts/node_modules:
-	cd scripts/build_setup ;\
-	npm install
 
 import: scripts/node_modules
-	node ./scripts/build_setup/import_assets.js
+	node $(NODE_SCRIPTS)/build_setup/import_assets.js

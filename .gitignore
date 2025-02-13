@@ -1,3 +1,4 @@
+result
 .swp
 *.obj
 *.map
@@ -9,8 +10,6 @@
 bin
 build
 src/gen
-scripts/converters/node_modules
-scripts/sokoban/node_modules
-scripts/build_setup/node_modules
+scripts/node_modules
 bankMakeList
 gametank-2M.cfg

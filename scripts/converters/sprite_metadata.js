@@ -6,6 +6,8 @@ const outFileName = argv._.length == 2 ?
     argv._[1] :
     inFileName.split(".").slice(0, -1).join(".") + ".gsi";
 
+console.log(require('process').cwd());
+
 const spriteInfo = JSON.parse(fs.readFileSync(inFileName));
 
 //offset X "VXO", offset Y "VYO", width, height, GX, GY
