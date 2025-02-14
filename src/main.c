@@ -11,6 +11,11 @@
 #include "music.h"
 #include "undo.h"
 
+#define CHARS_GRAM_PAGE 0
+#define TILES_GRAM_PAGE 1
+#define TITLE_GRAM_PAGE 2
+#define PASSWORD_GRAM_PAGE 3
+
 #define DEFAULT_OFFSET 4
 #define ANIM_TIME 8
 
@@ -191,9 +196,9 @@ void move_barrel_off_of(char i) {
 
 void main_menu_loop() {
     clear_screen(243);
-    draw_sprite(0,0,127,127,0,0,2);
+    draw_sprite(0, 0, 127, 127, 0, 0, TITLE_GRAM_PAGE);
     draw_sprite_frame(&ASSET__gfx__tinychars_json,
-    64, 104,(player_select << 2) + 2 + ((tick & 8) >> 3), 0, 0);
+    64, 93,(player_select << 2) + 2 + ((tick & 8) >> 3), 0, CHARS_GRAM_PAGE);
     await_draw_queue();
     sleep(1);
     flip_pages();
@@ -390,12 +395,12 @@ void game_loop() {
     if(pushing_box) {
         pushing_box_pos = (player_x + move_x) | ((player_y + move_y) << 4);
         draw_sprite_now((player_x << 3) + offset_x + (move_x << 3) - DEFAULT_OFFSET,
-            (player_y << 3) + offset_y + (move_y << 3) - DEFAULT_OFFSET, 8, 8, 16, 24, 1);
+            (player_y << 3) + offset_y + (move_y << 3) - DEFAULT_OFFSET, 8, 8, 16, 24, TILES_GRAM_PAGE);
     }
 
     if(pulling_box) {
         draw_sprite_now((player_x << 3) + offset_x - (move_x << 3) - DEFAULT_OFFSET,
-            (player_y << 3) + offset_y - (move_y << 3) - DEFAULT_OFFSET, 8, 8, 16, 24, 1);
+            (player_y << 3) + offset_y - (move_y << 3) - DEFAULT_OFFSET, 8, 8, 16, 24, TITLE_GRAM_PAGE);
     }
 
     // Check for level completion
@@ -419,7 +424,7 @@ void game_loop() {
         (player_x << 3) + offset_x,
         (player_y << 3) + offset_y,
         anim_frame, anim_flip,
-        0);
+        CHARS_GRAM_PAGE);
     sleep(1);
     flip_pages();
     tick_music();
@@ -439,9 +444,10 @@ int main () {
     await_draw_queue();
     clear_border(0);            
 
-    load_spritesheet(&ASSET__gfx__tinychars_bmp, 0);
-    load_spritesheet(&ASSET__gfx__tiles_bmp, 1);
-    load_spritesheet(&ASSET__gfx__title_bmp, 2);
+    load_spritesheet(&ASSET__gfx__tinychars_bmp, CHARS_GRAM_PAGE);
+    load_spritesheet(&ASSET__gfx__tiles_bmp, TILES_GRAM_PAGE);
+    load_spritesheet(&ASSET__gfx__title_bmp, TITLE_GRAM_PAGE);
+    load_spritesheet(&ASSET__gfx__password_bmp, PASSWORD_GRAM_PAGE);
 
     init_player();
     
