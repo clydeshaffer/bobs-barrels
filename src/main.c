@@ -4,6 +4,7 @@
 #include "gen/assets/gfx.h"
 #include "gen/assets/maps.h"
 #include <zlib.h>
+#include <stdbool.h>
 #include "banking.h"
 #include "gen/assets/mid.h"
 #include "dynawave.h"
@@ -28,6 +29,18 @@
 
 #define FIELD_SIZE 256
 
+// PASSWORD STUFF
+#define PASSWORD_LENGTH 8
+
+#define PASSWORD_CHAR_LEFT 64
+#define PASSWORD_CHAR_RIGHT 72
+#define PASSWORD_CHAR_UP 80
+#define PASSWORD_CHAR_DOWN 88
+#define PASSWORD_CHAR_A 96
+#define PASSWORD_CHAR_B 104
+#define PASSWORD_CHAR_C 112
+#define PASSWORD_CHAR_START 120
+
 char tick = 0;
 
 char anim_timer;
@@ -51,6 +64,10 @@ char* current_level;
 
 char kcode_pos = 0;
 char noclip = 0;
+
+char password[PASSWORD_LENGTH];
+char password_ix;
+char password_timer;
 
 char rand;
 
@@ -215,6 +232,91 @@ void main_menu_loop() {
         player_select = (player_select+1)%6;
     }
 }
+
+void init_password() {
+  i = 0;
+  password_ix = 0;
+  password_timer = 0;
+
+  do {
+    password[i] = 0;
+  } while (++i < PASSWORD_LENGTH);
+}
+
+bool password_screen_loop() {
+  i = 0;
+  clear_screen(243);
+  draw_sprite(0, 0, 127, 127, 0, 0, PASSWORD_GRAM_PAGE);
+  while (i < password_ix) {
+    if (password[i] != 0)
+      draw_sprite(18 + (12 * i), 80, 8, 8, password[i], 96, TILES_GRAM_PAGE);
+
+    i++;
+  }
+
+  await_draw_queue();
+  sleep(1);
+  flip_pages();
+  update_inputs();
+  tick_music();
+  ++tick;
+
+  if (password_ix == PASSWORD_LENGTH) {
+    password_timer++;
+    return password_timer < 60;
+  }
+
+  if (player1_buttons & ~player1_old_buttons & INPUT_MASK_LEFT) {
+    password[password_ix] = PASSWORD_CHAR_LEFT;
+    password_ix++;
+    return true;
+  }
+
+  if (player1_buttons & ~player1_old_buttons & INPUT_MASK_RIGHT) {
+    password[password_ix] = PASSWORD_CHAR_RIGHT;
+    password_ix++;
+    return true;
+  }
+
+  if (player1_buttons & ~player1_old_buttons & INPUT_MASK_UP) {
+    password[password_ix] = PASSWORD_CHAR_UP;
+    password_ix++;
+    return true;
+  }
+
+  if (player1_buttons & ~player1_old_buttons & INPUT_MASK_DOWN) {
+    password[password_ix] = PASSWORD_CHAR_DOWN;
+    password_ix++;
+    return true;
+  }
+
+  if (player1_buttons & ~player1_old_buttons & INPUT_MASK_A) {
+    password[password_ix] = PASSWORD_CHAR_A;
+    password_ix++;
+    return true;
+  }
+
+  if (player1_buttons & ~player1_old_buttons & INPUT_MASK_B) {
+    password[password_ix] = PASSWORD_CHAR_B;
+    password_ix++;
+    return true;
+  }
+
+  if (player1_buttons & ~player1_old_buttons & INPUT_MASK_C) {
+    password[password_ix] = PASSWORD_CHAR_C;
+    password_ix++;
+    return true;
+  }
+
+  if (player1_buttons & ~player1_old_buttons & INPUT_MASK_START) {
+    password[password_ix] = PASSWORD_CHAR_START;
+    password_ix++;
+    return true;
+  }
+
+  return true;
+}
+
 
 char exec_kcode() {
     if (player1_buttons == kcode_list[kcode_pos+1]) {
@@ -461,10 +563,21 @@ int main () {
     play_song(&ASSET__mid__yeeee_mid, REPEAT_NONE);
 
     // Start menu
-    while(!(player1_buttons & INPUT_MASK_START)) {
+    while (!(player1_buttons & INPUT_MASK_START)) {
+      if (player1_buttons & INPUT_MASK_B) {
+        goto Password;
+      }
         main_menu_loop();
     }
+    goto AfterPassword;
 
+ Password:
+    init_password();
+    while (password_screen_loop()) {}
+
+    // TODO check for password match here
+
+ AfterPassword:
     stop_music();
 
     // Main game loop, run forever
