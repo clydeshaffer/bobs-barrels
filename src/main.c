@@ -5,6 +5,7 @@
 #include "gen/assets/maps.h"
 #include <zlib.h>
 #include <stdbool.h>
+#include <string.h>
 #include "banking.h"
 #include "gen/assets/mid.h"
 #include "dynawave.h"
@@ -41,6 +42,11 @@
 #define PASSWORD_CHAR_C 112
 #define PASSWORD_CHAR_START 120
 
+typedef struct PasswordEntryT {
+  char code[PASSWORD_LENGTH];
+  short jump_offset;
+} PasswordEntry;
+
 char tick = 0;
 
 char anim_timer;
@@ -68,6 +74,8 @@ char noclip = 0;
 char password[PASSWORD_LENGTH];
 char password_ix;
 char password_timer;
+char password_entry_count;
+PasswordEntry *password_entry;
 
 char rand;
 
@@ -573,9 +581,23 @@ int main () {
 
  Password:
     init_password();
+    // Gather password input
     while (password_screen_loop()) {}
 
-    // TODO check for password match here
+    // Check for password match
+    change_rom_bank(ASSET__maps__passwords_dummy_bank);
+    password_entry_count = (char) ASSET__maps__passwords_dummy_ptr;
+    password_entry = (PasswordEntry *) ((char *) &ASSET__maps__passwords_dummy_ptr + 1);
+
+    for (i = 0; i < password_entry_count; i++) {
+      if (strncmp(password, password_entry->code, PASSWORD_LENGTH) == 0) {
+        next_level = current_level + password_entry->jump_offset;
+        load_next_level();
+        break;
+      }
+      password_entry++;
+    }
+
 
  AfterPassword:
     stop_music();

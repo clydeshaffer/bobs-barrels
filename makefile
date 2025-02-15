@@ -57,9 +57,9 @@ $(BANKS): $(ASSETOBJS) $(AOBJS) $(COBJS) $(LLIBS) gametank-2M.cfg
 	$(LN) $(LFLAGS) $(ASSETOBJS) $(AOBJS) $(COBJS) -o bin/$(TARGET) $(LLIBS)
 
 .PRECIOUS: $(ODIR)/assets/%.bin
-$(ODIR)/assets/%.bin: assets/%.slc
-	mkdir -p $(@D)
-	node $(NODE_SCRIPTS)/sokoban/sokoban.js $< $@
+$(ODIR)/assets/maps/microban.bin $(ODIR)/assets/passwords/passwords.bin: assets/maps/microban.slc
+	mkdir -p $(ODIR)/assets/maps/
+	node $(NODE_SCRIPTS)/sokoban/sokoban.js assets/maps/microban.slc $(ODIR)/assets/maps/microban.bin $(ODIR)/assets/maps/passwords.bin
 
 .PRECIOUS: $(ODIR)/assets/%.gtg
 $(ODIR)/assets/%.gtg: assets/%.bmp

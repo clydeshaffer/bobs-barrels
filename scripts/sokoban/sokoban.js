@@ -4,6 +4,18 @@ const zlib = require("zlib");
 
 const BANK_SIZE = 16384;
 
+// ids for the password check
+const passwordCharMap = new Map([
+  ['l', 64],
+  ['r', 72],
+  ['u', 80],
+  ['d', 88],
+  ['a', 96],
+  ['b', 104],
+  ['c', 112],
+  ['s', 120],
+]);
+
 const CHAR_0 = 168;
 const CHAR_1 = 169;
 const CHAR_2 = 170;
@@ -14,6 +26,15 @@ const CHAR_6 = 174;
 const CHAR_7 = 175;
 const CHAR_8 = 184;
 const CHAR_9 = 185;
+
+const CHAR_LEFT = 200;
+const CHAR_RIGHT = 201;
+const CHAR_UP = 202;
+const CHAR_DOWN = 203;
+const CHAR_A = 204;
+const CHAR_B = 205;
+const CHAR_C = 206;
+const CHAR_START = 207;
 
 const TILE_GRASS = 0;
 const PLAYER_START = 32;
@@ -26,11 +47,11 @@ const TILE_WALL = 166;
 const parser = new xml2js.Parser();
 
 const argv = require("minimist")(process.argv.slice(2));
-const inFileName = argv._[0];
-const outFileName =
-  argv._.length == 2
-    ? argv._[1]
-    : inFileName.split(".").slice(0, -1).join(".") + ".bin";
+
+if (argv._.length != 3)
+  throw new Error(`Expected 3 command line arguments but received ${argv.length}`);
+
+const [inFileName, mapOutputFile, passwordOutputFile] = argv._;
 
 function writeLevelNumber(targetStr, srcStr) {
   const header = targetStr.slice(0, -(16 + srcStr.length));
@@ -77,6 +98,22 @@ const getTileFromChar = (c) => {
       return CHAR_8;
     case "9":
       return CHAR_9;
+    case "l":
+        return CHAR_LEFT;
+    case "r":
+        return CHAR_RIGHT;
+    case "u":
+        return CHAR_UP;
+    case "d":
+        return CHAR_DOWN;
+    case "a":
+        return CHAR_A;
+    case "b":
+        return CHAR_B;
+    case "c":
+        return CHAR_C;
+    case "s":
+        return CHAR_START;
     case " ":
       return TILE_GRASS;
     default:
@@ -84,7 +121,7 @@ const getTileFromChar = (c) => {
   }
 };
 
-function convertLevel(levelNum, level) {
+function prepareLevel(levelNum, level) {
   const widthDiff = 16 - level.$.Width;
   const heightDiff = 16 - level.$.Height;
   const leftPad = Math.floor(widthDiff / 2);
@@ -92,7 +129,6 @@ function convertLevel(levelNum, level) {
   const padStringLeft = "".padStart(leftPad, " ");
 
   const topPad = Math.floor(heightDiff / 2);
-  const levelBuf = Buffer.alloc(256);
 
   const paddedLevel = [
     ...Array.from(range(topPad)).map(() => " ".repeat(16)),
@@ -105,7 +141,16 @@ function convertLevel(levelNum, level) {
     (levelNum + 1).toString()
   );
 
-  for (const [ix, c] of Array.from(levelWithNumber).entries()) {
+  return levelWithNumber;
+}
+
+function convertLevel(level) {
+  const levelBuf = Buffer.alloc(256);
+
+  if (level.length != 256)
+    throw new Error(`Unexpected level size ${level.length}, expected 256`);
+
+  for (const [ix, c] of level.split('').entries()) {
     levelBuf.writeUint8(getTileFromChar(c), ix);
   }
 
@@ -144,21 +189,72 @@ function truncateLevels(levels, maxSize) {
   return ret;
 }
 
+function levelSizes(compressedLevels) {
+  const ret = [];
+
+  for (let i = 0; i < compressedLevels.length; i+=2) {
+    ret.push(compressedLevels[i].byteLength + compressedLevels[i + 1].byteLength);
+  }
+
+  return ret;
+}
+
+function runningSum(arr) {
+  const ret = [];
+  let runningSum = 0;
+
+  for (const a of arr) {
+    runningSum += a;
+    ret.push(runningSum);
+  }
+
+  return ret;
+}
+
+function preparePasswords(passwordsByLevel, levelByteIndicies) {
+  function passwordStringToIds(password) {
+    return password.split('').map(c => {
+      if (!passwordCharMap.has(c))
+        throw new Error(`Unexpected char '${c}' in password. Expected one of 'lrudabcs'.`);
+
+      return passwordCharMap.get(c);
+    });
+  }
+
+  // First byte stores the number of password entries
+  const ret = [passwordsByLevel.length];
+
+  for (const [levelNum, password] of passwordsByLevel) {
+    jumpTarget = levelByteIndicies[levelNum];
+    jumpHighByte = (jumpTarget & 0xFF00) >> 8;
+    jumpLowByte = jumpTarget & 0xFF;
+
+    ret.push([...passwordStringToIds(password), jumpLowByte, jumpHighByte]);
+  }
+
+  return ret.flat();
+}
+
 fs.readFile(inFileName, function (_err, data) {
   parser.parseString(data, (_xmlErr, jsonObj) => {
     const levels = jsonObj.SokobanLevels.LevelCollection.flatMap(
       (col) => col.Level
     );
 
-    const convertedLevels = Array.from(
-      levels
-        .filter((level) => level.$.Width <= 16 && level.$.Height <= 14)
-        .entries()
-    ).map(([levelNum, level]) => convertLevel(levelNum, level));
+    const reasonablySizedLevels = levels.filter((level) => level.$.Width <= 16 && level.$.Height <= 14);
+
+    const passwordLevels = Array.from(reasonablySizedLevels.entries())
+          .filter(([levelNum, level]) => level.$.Password)
+          .map(([levelNum, level]) => [levelNum, level.$.Password]);
+
+    const convertedLevels = Array.from(reasonablySizedLevels.entries())
+          .map(([levelNum, level]) => prepareLevel(levelNum, level))
+          .map(level => convertLevel(level));
 
     let compressedLevels = convertedLevels.flatMap(compressLevel);
     let bufToWrite = Buffer.concat(compressedLevels);
 
+    // TODO account for the password jump entries in this size calculation
     if (bufToWrite.byteLength > BANK_SIZE) {
       console.warn("levels too big, truncating");
 
@@ -166,12 +262,22 @@ fs.readFile(inFileName, function (_err, data) {
       bufToWrite = Buffer.concat(compressedLevels);
     }
 
-    fs.writeFileSync(outFileName, bufToWrite);
+    fs.writeFileSync(mapOutputFile, bufToWrite);
 
     console.log(
       `wrote ${compressedLevels.length / 2} levels (${
         bufToWrite.byteLength
-      } bytes) to ${outFileName}`
+      } bytes) to ${mapOutputFile}`
+    );
+
+    const passwordJumpData = preparePasswords(passwordLevels, runningSum(levelSizes(compressedLevels)));
+
+    fs.writeFileSync(passwordOutputFile, new Uint8Array(passwordJumpData));
+
+    console.log(
+      `wrote ${passwordLevels.length} password jump entries (${
+        passwordJumpData.length
+      } bytes) to ${passwordOutputFile}`
     );
   });
 });

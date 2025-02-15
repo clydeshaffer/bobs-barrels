@@ -7,7 +7,8 @@ const extensionMap = {
     'bmp' : 'gtg.deflate',
     'mid' : 'gtm2',
     'json' : 'gsi',
-    'slc' : 'bin'
+    'slc' : 'bin',
+    'dummy' : 'bin',
 }
 
 function transformFilename(filename) {
@@ -96,7 +97,6 @@ function generateAssetsHeaderFile(dir, bankNumber) {
 }
 
 function generateAssetAssemblyFiles(assetFolderNames, folderBankMap) {
-
     if (fs.existsSync(srcGenDir)){
         fs.rmSync(srcGenDir, { recursive: true });
     }
