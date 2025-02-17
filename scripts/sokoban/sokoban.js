@@ -225,7 +225,7 @@ function preparePasswords(passwordsByLevel, levelByteIndicies) {
   const ret = [passwordsByLevel.length];
 
   for (const [levelNum, password] of passwordsByLevel) {
-    jumpTarget = levelByteIndicies[levelNum];
+    jumpTarget = levelByteIndicies[levelNum - 1];
     jumpHighByte = (jumpTarget & 0xFF00) >> 8;
     jumpLowByte = jumpTarget & 0xFF;
 
