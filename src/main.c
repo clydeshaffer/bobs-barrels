@@ -510,7 +510,7 @@ void game_loop() {
 
     if(pulling_box) {
         draw_sprite_now((player_x << 3) + offset_x - (move_x << 3) - DEFAULT_OFFSET,
-            (player_y << 3) + offset_y - (move_y << 3) - DEFAULT_OFFSET, 8, 8, 16, 24, TITLE_GRAM_PAGE);
+            (player_y << 3) + offset_y - (move_y << 3) - DEFAULT_OFFSET, 8, 8, 16, 24, TILES_GRAM_PAGE);
     }
 
     // Check for level completion
