@@ -98,6 +98,15 @@ were interesting but too easy to include in my regular sets.
       <L>  ##.#</L>
       <L>   ###</L>
     </Level>
+
+    <Level Id="Intermission-1" Width="8" Height="5" Password="llrrudud">
+      <L>llrrudud</L>
+      <L>        </L>
+      <L>########</L>
+      <L># @ $. #</L>
+      <L>########</L>
+    </Level>
+
     <Level Id="10" Width="11" Height="8">
       <L>      #####</L>
       <L>      #.  #</L>
@@ -186,6 +195,17 @@ were interesting but too easy to include in my regular sets.
       <L>  #  #</L>
       <L>  ####</L>
     </Level>
+
+    <Level Id="Intermission-2" Width="8" Height="7" Password="basscabs">
+      <L>basscabs</L>
+      <L>        </L>
+      <L>########</L>
+      <L>#      #</L>
+      <L># ####$#</L>
+      <L>#@#  #.#</L>
+      <L> #    # </L>
+    </Level>
+
     <Level Id="19" Width="8" Height="8">
       <L>########</L>
       <L>#   .. #</L>
@@ -271,6 +291,17 @@ were interesting but too easy to include in my regular sets.
       <L>#.  ###</L>
       <L>#####</L>
     </Level>
+
+    <Level Id="Intermission-3" Width="8" Height="7" Password="uubabauu">
+      <L>uubabauu</L>
+      <L>        </L>
+      <L> #####  </L>
+      <L>#.$@$.# </L>
+      <L> ##$##  </L>
+      <L>  #.#   </L>
+      <L>   #    </L>
+    </Level>
+
     <Level Id="28" Width="7" Height="7">
       <L>#####</L>
       <L>#   #</L>
@@ -354,6 +385,18 @@ were interesting but too easy to include in my regular sets.
       <L># .....       #</L>
       <L>###############</L>
     </Level>
+
+    <Level Id="Intermission-4" Width="8" Height="8" Password="basuards">
+      <L>basuards</L>
+      <L>        </L>
+      <L>   #    </L>
+      <L>  #.#   </L>
+      <L>  #$#   </L>
+      <L>  # #   </L>
+      <L>  #@#   </L>
+      <L>   #    </L>
+    </Level>
+
     <Level Id="37" Width="9" Height="8">
       <L>      ###</L>
       <L>##### #.#</L>
@@ -435,6 +478,17 @@ were interesting but too easy to include in my regular sets.
       <L>#  @ #</L>
       <L>######</L>
     </Level>
+
+    <Level Id="Intermission-5" Width="8" Height="7" Password="dddrdddl">
+      <L>dddrdddl</L>
+      <L>        </L>
+      <L> ###### </L>
+      <L>#.   @ #</L>
+      <L>#$# ### </L>
+      <L>#   #   </L>
+      <L> ###    </L>
+    </Level>
+
     <Level Id="46" Width="7" Height="8">
       <L> ######</L>
       <L>##    #</L>
@@ -523,6 +577,19 @@ were interesting but too easy to include in my regular sets.
       <L>##    #####</L>
       <L> ######</L>
     </Level>
+
+    <Level Id="Intermission-6" Width="8" Height="9" Password="ssssllll">
+      <L>ssssllll</L>
+      <L>        </L>
+      <L>      # </L>
+      <L>     #.#</L>
+      <L> #####$#</L>
+      <L>#   @  #</L>
+      <L>#$##### </L>
+      <L>#.#     </L>
+      <L> #      </L>
+    </Level>
+
     <Level Id="55" Width="10" Height="8">
       <L>########</L>
       <L># @ #  #</L>
@@ -604,14 +671,6 @@ were interesting but too easy to include in my regular sets.
       <L>#   #### ####</L>
       <L>#####</L>
     </Level>
-    <Level Id="63" Width="19" Height="6">
-      <L>#####   ####</L>
-      <L>#   ##### .#</L>
-      <L>#       $  ########</L>
-      <L>###  #### .$    @ #</L>
-      <L>  #  #  #  ####   #</L>
-      <L>  ####  ####  #####</L>
-    </Level>
     <Level Id="64" Width="10" Height="9">
       <L> ######</L>
       <L>##    #</L>
@@ -623,6 +682,19 @@ were interesting but too easy to include in my regular sets.
       <L>   #. ####</L>
       <L>   ####</L>
     </Level>
+
+    <Level Id="Intermission-7" Width="8" Height="9" Password="rrrrssss">
+      <L>rrrrssss</L>
+      <L>        </L>
+      <L> #      </L>
+      <L>#.#     </L>
+      <L>#$##### </L>
+      <L>#   @  #</L>
+      <L> #####$#</L>
+      <L>     #.#</L>
+      <L>      # </L>
+    </Level>
+
     <Level Id="65" Width="9" Height="9">
       <L>  ######</L>
       <L>  #    #</L>
@@ -727,6 +799,19 @@ were interesting but too easy to include in my regular sets.
       <L>#  #   #</L>
       <L>########</L>
     </Level>
+
+    <Level Id="Intermission-8" Width="8" Height="9" Password="aaaaaada">
+      <L>aaaaaada</L>
+      <L>        </L>
+      <L>    #   </L>
+      <L>   #.#  </L>
+      <L>   #$#  </L>
+      <L>   #@#  </L>
+      <L>   #$#  </L>
+      <L>   #.#  </L>
+      <L>    #   </L>
+    </Level>
+
     <Level Id="74" Width="11" Height="8">
       <L> ####</L>
       <L> #  #######</L>
@@ -820,6 +905,16 @@ were interesting but too easy to include in my regular sets.
       <L>#     #</L>
       <L>#######</L>
     </Level>
+
+    <Level Id="Intermission-9" Width="8" Height="6" Password="adadburl">
+      <L>adadburl</L>
+      <L>        </L>
+      <L>   ##   </L>
+      <L> ## @## </L>
+      <L>#.$  $.#</L>
+      <L> ###### </L>
+    </Level>
+
     <Level Id="83" Width="8" Height="10">
       <L>######</L>
       <L>#    ##</L>
@@ -920,6 +1015,16 @@ were interesting but too easy to include in my regular sets.
       <L>#   ##.   #</L>
       <L>###########</L>
     </Level>
+
+    <Level Id="Intermission-10" Width="8" Height="6" Password="lllbbaal">
+      <L>lllbbaal</L>
+      <L>        </L>
+      <L> ###### </L>
+      <L>#.$@   #</L>
+      <L>#    $.#</L>
+      <L> ###### </L>
+    </Level>
+
     <Level Id="92" Width="15" Height="10">
       <L>  ####</L>
       <L>  #  #    #####</L>
@@ -1002,18 +1107,6 @@ were interesting but too easy to include in my regular sets.
       <L>  #### ##     ##</L>
       <L>        #######</L>
     </Level>
-    <Level Id="99" Width="22" Height="10">
-      <L>               #####</L>
-      <L>               #   #</L>
-      <L>#######  ####### # #</L>
-      <L>#     #  #  #      #</L>
-      <L>#  @  ####  #     ####</L>
-      <L>#  #    ....## ####  #</L>
-      <L>#    ##### ## $$ $ $ #</L>
-      <L>######   #           #</L>
-      <L>         #  ##########</L>
-      <L>         ####</L>
-    </Level>
     <Level Id="100" Width="8" Height="8">
       <L>#######</L>
       <L># @#  #</L>
@@ -1039,6 +1132,16 @@ were interesting but too easy to include in my regular sets.
       <L>      #   #</L>
       <L>      #####</L>
     </Level>
+
+    <Level Id="Intermission-11" Width="8" Height="6" Password="uldrulda">
+      <L>uldrulda</L>
+      <L>        </L>
+      <L> ###### </L>
+      <L># $..$ #</L>
+      <L>#   @  #</L>
+      <L> ###### </L>
+    </Level>
+
     <Level Id="102" Width="11" Height="8">
       <L>###########</L>
       <L>#....#    #</L>
@@ -1140,6 +1243,16 @@ were interesting but too easy to include in my regular sets.
       <L>   # @#</L>
       <L>   ####</L>
     </Level>
+
+    <Level Id="Intermission-12" Width="8" Height="6" Password="dlurdlua">
+      <L>dlurdlua</L>
+      <L>        </L>
+      <L> ###### </L>
+      <L>#   @  #</L>
+      <L># $..$ #</L>
+      <L> ###### </L>
+    </Level>
+
     <Level Id="111" Width="9" Height="12">
       <L>######</L>
       <L>#    ####</L>
@@ -1250,6 +1363,20 @@ were interesting but too easy to include in my regular sets.
       <L>#     ##</L>
       <L>#######</L>
     </Level>
+
+    <Level Id="Intermission-13" Width="12" Height="10" Password="lddddlra">
+      <L>  lddddlra  </L>
+      <L>            </L>
+      <L> ########## </L>
+      <L>#          #</L>
+      <L>#  @       #</L>
+      <L>#          #</L>
+      <L>#          #</L>
+      <L>#      $.  #</L>
+      <L>#          #</L>
+      <L> ########## </L>
+    </Level>
+
     <Level Id="120" Width="11" Height="11">
       <L>      ####</L>
       <L>#######  #</L>
@@ -1354,6 +1481,24 @@ were interesting but too easy to include in my regular sets.
       <L> #   ###</L>
       <L> #####</L>
     </Level>
+
+    <Level Id="Intermission-14" Width="15" Height="14" Password="rdrdrdba">
+      <L>               </L>
+      <L>           r   </L>
+      <L>           d  </L>
+      <L>           r   </L>
+      <L>           d   </L>
+      <L>           r   </L>
+      <L>           d   </L>
+      <L>           b   </L>
+      <L>           a   </L>
+      <L>#####          </L>
+      <L>#@  #          </L>
+      <L># $ #          </L>
+      <L>#  .#          </L>
+      <L>#####          </L>
+    </Level>
+
     <Level Id="129" Width="11" Height="8">
       <L>  #########</L>
       <L>### @ #   #</L>
@@ -1449,6 +1594,20 @@ were interesting but too easy to include in my regular sets.
       <L> #      #</L>
       <L> ########</L>
     </Level>
+
+    <Level Id="Intermission-15" Width="11" Height="10" Password="dulssaba">
+      <L>  dulssaba </L>
+      <L>           </L>
+      <L> # ### ### </L>
+      <L>#@#   #   #</L>
+      <L># # # # # #</L>
+      <L># # # # # #</L>
+      <L># # # # # #</L>
+      <L># # # # #$#</L>
+      <L>#   #   #.#</L>
+      <L> ### ### # </L>
+    </Level>
+
     <Level Id="138" Width="12" Height="11">
       <L>  ####</L>
       <L>###  #</L>
@@ -1509,23 +1668,6 @@ were interesting but too easy to include in my regular sets.
       <L>   #  #</L>
       <L>   ####</L>
     </Level>
-    <Level Id="143" Width="9" Height="15">
-      <L>####</L>
-      <L>#  ####</L>
-      <L># $   #</L>
-      <L># .#  #</L>
-      <L># $# ##</L>
-      <L># .  #</L>
-      <L>#### #</L>
-      <L>   # #</L>
-      <L> ### ###</L>
-      <L> #  $  #</L>
-      <L>## #$# ##</L>
-      <L># $ @ $ #</L>
-      <L># ..#.. #</L>
-      <L>###   ###</L>
-      <L>  #####</L>
-    </Level>
     <Level Id="144" Width="12" Height="12">
       <L>   ####</L>
       <L> ###  #####</L>
@@ -1576,6 +1718,19 @@ were interesting but too easy to include in my regular sets.
       <L>  #   ##</L>
       <L>  #####</L>
     </Level>
+
+    <Level Id="Intermission-16" Width="11" Height="9" Password="assudass">
+      <L>  assudass </L>
+      <L>           </L>
+      <L> ######### </L>
+      <L>#.........#</L>
+      <L>#$$$$$$$$$#</L>
+      <L>#  @      #</L>
+      <L>#$$$$$$$$$#</L>
+      <L>#.........#</L>
+      <L> ######### </L>
+    </Level>
+
     <Level Id="148" Width="15" Height="7">
       <L>###########</L>
       <L>#  .  #   #</L>
@@ -1643,44 +1798,6 @@ were interesting but too easy to include in my regular sets.
       <L>#..  # $   #</L>
       <L>#..  #  #  #</L>
       <L>############</L>
-    </Level>
-    <Level Id="154" Width="29" Height="17">
-      <L> ############################</L>
-      <L> #                          #</L>
-      <L> # ######################## #</L>
-      <L> # #                      # #</L>
-      <L> # # #################### # #</L>
-      <L> # # #                  # # #</L>
-      <L> # # # ################ # # #</L>
-      <L> # # # #              # # # #</L>
-      <L> # # # # ############ # # # #</L>
-      <L> # # # # #            # # # #</L>
-      <L> # # # # # ############ # # #</L>
-      <L> # # # # #              # # #</L>
-      <L> # # # # ################ # #</L>
-      <L> # # # #                  # #</L>
-      <L>##$# # #################### #</L>
-      <L>#. @ #                      #</L>
-      <L>#############################</L>
-    </Level>
-    <Level Id="155" Width="30" Height="17">
-      <L>    ######               ####</L>
-      <L>#####*#  #################  ##</L>
-      <L>#   ###                      #</L>
-      <L>#        ########  ####  ##  #</L>
-      <L>### ####     #  ####  ####  ##</L>
-      <L>#*# # .# # # #     #     #   #</L>
-      <L>#*# #  #     # ##  # ##  ##  #</L>
-      <L>###    ### ###  # ##  # ##  ##</L>
-      <L> #   # #*#      #     # #    #</L>
-      <L> #   # ###  #####  #### #    #</L>
-      <L> #####   #####  ####### ######</L>
-      <L> #   # # #**#               #</L>
-      <L>## # #   #**#  #######  ##  #</L>
-      <L>#    #########  #    ##### ###</L>
-      <L># #             # $        #*#</L>
-      <L>#   #########  ### @#####  #*#</L>
-      <L>#####       #### ####   ######</L>
     </Level>
   </LevelCollection>
   <LevelCollection Copyright="Nick Girardo" MaxWidth="16" MaxHeight="13">
