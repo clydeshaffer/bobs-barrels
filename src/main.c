@@ -223,7 +223,7 @@ void main_menu_loop() {
     clear_screen(243);
     draw_sprite(0, 0, 127, 127, 0, 0, TITLE_GRAM_PAGE);
     draw_sprite_frame(&ASSET__gfx__tinychars_json,
-    64, 93,(player_select << 2) + 2 + ((tick & 8) >> 3), 0, CHARS_GRAM_PAGE);
+    64, 90,(player_select << 2) + 2 + ((tick & 8) >> 3), 0, CHARS_GRAM_PAGE);
     await_draw_queue();
     sleep(1);
     flip_pages();
