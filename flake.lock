@@ -47,7 +47,7 @@
         "narHash": "sha256-AYJN2OlG2qbKOqbhi7WH859REt1h2KDXAZ+LgbWDuqc=",
         "owner": "nickgirardo",
         "repo": "nix-cc65-unstable",
-        "rev": "18b6c7417518c54bb95a2071782f2603d883edc9",
+        "rev": "8c6d60994a3437bfa002fb9dc37008cec62afe4b",
         "type": "github"
       },
       "original": {
